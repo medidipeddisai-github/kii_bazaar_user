@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "104551526098",
+    "firebase_url": "https://kgms-de0e8-default-rtdb.firebaseio.com",
+    "project_id": "kgms-de0e8",
+    "storage_bucket": "kgms-de0e8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104551526098:android:01cf82db69a98b3513c70b",
+        "android_client_info": {
+          "package_name": "com.ecommerce.kiibazaar.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLZHqMhVTF66FfqkCBDEdiVAHWSu7iOQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104551526098:android:80135d7651b219de13c70b",
+        "android_client_info": {
+          "package_name": "com.tamasakonar.kgms_user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLZHqMhVTF66FfqkCBDEdiVAHWSu7iOQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

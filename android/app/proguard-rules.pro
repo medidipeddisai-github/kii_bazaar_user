@@ -1,0 +1,2 @@
+-keep class com.razorpay.** { *; }
+-keep class com.google.firebase.crashlytics.** { *; }
