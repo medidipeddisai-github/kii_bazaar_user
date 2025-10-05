@@ -201,6 +201,7 @@ class PhoneAuthNotifier extends StateNotifier<UserModel> {
     var pref = await SharedPreferences.getInstance();
 
     try {
+      loader.state = true;
       await auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (PhoneAuthCredential credential) async {
@@ -242,6 +243,7 @@ class PhoneAuthNotifier extends StateNotifier<UserModel> {
           showSnackBar(context, errorMsg, Colors.red);
         },
         codeSent: (String verificationId, int? resendToken) {
+          loader.state = false;  // Stop loader
           pref.setString("verificationid", verificationId);
           codeSentNotifier.state = true;
           
@@ -270,7 +272,7 @@ class PhoneAuthNotifier extends StateNotifier<UserModel> {
         reason: "Unexpected error during phone number verification",
         fatal: true,
       );
-
+      showSnackBar(context, e.toString(), Colors.red);
       debugPrint("Error during verification: $e");
     }
   }

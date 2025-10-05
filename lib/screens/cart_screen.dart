@@ -218,7 +218,7 @@ class CartScreenState extends ConsumerState<CartScreen> {
           }
         }
       }
-
+            
       selectedCartItemKeys = productSelections.entries
           .where((entry) => entry.value == true)
           .map((entry) => entry.key)
@@ -487,7 +487,7 @@ class CartScreenState extends ConsumerState<CartScreen> {
           children: [
             Icon(Icons.shopping_cart_rounded, color: Colors.white),
             SizedBox(width: 8),
-            Text("KGMS CART", style: TextStyle(color: Colors.white)),
+            Text("KII_BAZAAR CART", style: TextStyle(color: Colors.white)),
           ],
         ),
         leading: IconButton(
@@ -513,7 +513,7 @@ class CartScreenState extends ConsumerState<CartScreen> {
                           ),
                           SizedBox(height: 16),
                           Text(
-                            "Your KGMS cart is empty!",
+                            "Your KII_BAZAAR cart is empty!",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -522,7 +522,7 @@ class CartScreenState extends ConsumerState<CartScreen> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            "Add some KGMS products to get started",
+                            "Add some KII_BAZAAR products to get started",
                             style: TextStyle(
                               fontSize: 14,
                               color: KGMS.secondaryText,

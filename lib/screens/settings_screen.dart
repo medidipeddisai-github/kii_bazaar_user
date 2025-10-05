@@ -49,7 +49,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             const SizedBox(width: 12),
             const Text(
-              'KGMS Settings',
+              ' Settings',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -219,7 +219,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                             context,
                             icon: Icons.logout_rounded,
                             label: 'Log Out',
-                            subtitle: 'Sign out of your KGMS account',
+                            subtitle: 'Sign out of your KII_BAZAAR account',
                             color: Colors.red,
                             onTap: () {
                               _showLogoutDialog(context);
@@ -291,7 +291,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                             context,
                             icon: Icons.star_rate_rounded,
                             label: 'Leave a Review',
-                            subtitle: 'Rate our KGMS services',
+                            subtitle: 'Rate our KII_BAZAAR services',
                             color: Colors.amber,
                             onTap: () {
                               // Navigate to Review Page
@@ -363,7 +363,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                             context,
                             icon: Icons.delete_forever_rounded,
                             label: 'Delete Account',
-                            subtitle: 'Permanently delete your KGMS account',
+                            subtitle: 'Permanently delete your KII_BAZAAR account',
                             color: Colors.red,
                             onTap: () {
                               _showDeleteAccountDialog(context, ref);
@@ -388,7 +388,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                       // ),
                       const SizedBox(height: 8),
                       Text(
-                        'KGMS',
+                        'KII_BAZAAR',
                         style: TextStyle(
                           color: KGMS.primaryBlue.withValues(alpha: 0.7),
                           fontWeight: FontWeight.bold,
@@ -396,7 +396,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
                         ),
                       ),
                       const Text(
-                        'Your trusted KGMS partner',
+                        'Your trusted KII_BAZAAR partner',
                         style: TextStyle(
                           color: KGMS.secondaryText,
                           fontSize: 12,
@@ -479,7 +479,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
             ],
           ),
           content: const Text(
-            'Are you sure you want to logout from your KGMS account?',
+            'Are you sure you want to logout from your KII_BAZAAR account?',
           ),
           actions: [
             TextButton(
@@ -550,7 +550,7 @@ class SettingsPageState extends ConsumerState<SettingsPage> {
             ],
           ),
           content: const Text(
-            'Are you sure you want to delete your KGMS account? This action cannot be undone.',
+            'Are you sure you want to delete your KII_BAZAAR account? This action cannot be undone.',
           ),
           actions: [
             TextButton(

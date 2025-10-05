@@ -108,7 +108,7 @@ class HomePageContentState extends ConsumerState<HomePageContent> {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    'KGMS Categories',
+                    'KII_BAZAAR Categories',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

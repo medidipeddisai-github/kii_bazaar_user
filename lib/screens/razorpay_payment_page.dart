@@ -80,8 +80,8 @@ class _RazorpayPaymentPageState extends State<RazorpayPaymentPage>
     var options = {
       'key': 'rzp_live_6tvrYJlTwFFGiV',
       'amount': (widget.amount * 100).toInt(),
-      'name': 'KGMS',
-      'description': 'KGMS Product Booking Payment',
+      'name': 'KII_BAZAAR',
+      'description': 'KII_BAZAAR Product Booking Payment',
       'prefill': {
         'contact': widget.contact,
         'email': widget.email,
@@ -90,8 +90,8 @@ class _RazorpayPaymentPageState extends State<RazorpayPaymentPage>
         'color': '#1B73E8',
       },
       'notes': {
-        'payment_for': 'KGMS_products',
-        'customer_type': 'kii_bazaar',
+        'payment_for': 'KII_BAZAAR_products',
+        'customer_type': 'KII_BAZAAR',
       },
     };
 
@@ -240,7 +240,7 @@ class _RazorpayPaymentPageState extends State<RazorpayPaymentPage>
 
                   // GoMed branding
                   const Text(
-                    'KGMS',
+                    'KII_BAZAAR',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -252,7 +252,7 @@ class _RazorpayPaymentPageState extends State<RazorpayPaymentPage>
                   const SizedBox(height: 8),
 
                   const Text(
-                    'Secure KGMS Payment',
+                    'Secure KII_BAZAAR Payment',
                     style: TextStyle(
                       fontSize: 16,
                       color: KGMS.secondaryText,
