@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
 import '../colors/colors.dart';
+
 
 class RazorpayPaymentPage extends StatefulWidget {
   final double amount;
@@ -204,7 +204,7 @@ class _RazorpayPaymentPageState extends State<RazorpayPaymentPage>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // KGMS logo/icon section
+                  
                   AnimatedBuilder(
                     animation: _scaleAnimation,
                     builder: (context, child) {
@@ -227,7 +227,7 @@ class _RazorpayPaymentPageState extends State<RazorpayPaymentPage>
                             ],
                           ),
                           child: const Icon(
-                            Icons.medical_services_rounded,
+                            Icons.local_mall_rounded,
                             size: 60,
                             color: Colors.white,
                           ),

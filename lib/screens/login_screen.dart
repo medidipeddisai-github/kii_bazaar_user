@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kii_bazaar/providers/auth_state.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:kii_bazaar/providers/loader.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -63,6 +64,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var isLoadings = ref.read(loadingProvider);
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -115,7 +117,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                 );
 
                                 return ElevatedButton(
-                                  onPressed: isLoading
+                                  onPressed: isLoadings
                                       ? null
                                       : () async {
                                           // Capture context-dependent objects before async operations
@@ -134,7 +136,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
 
                                           if (isValid) {
                                             setState(() {
-                                              isLoading = true;
+                                              // isLoading = true;
                                               lastPhoneNumber = phoneNumber;
                                             });
                                             
@@ -147,11 +149,11 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                                   onOtpReceived: onOtpReceived, // Pass callback
                                                 );
 
-                                            if (mounted) {
-                                              setState(() {
-                                                isLoading = false;
-                                              });
-                                            }
+                                            // if (mounted) {
+                                            //   setState(() {
+                                            //     isLoading = false;
+                                            //   });
+                                            // }
                                           } else {
                                             // Use captured scaffoldMessenger
                                             scaffoldMessenger.showSnackBar(
@@ -170,7 +172,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
-                                  child: isLoading
+                                  child: isLoadings
                                       ? const SizedBox(
                                           height: 24,
                                           width: 24,
@@ -359,7 +361,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                           scaffoldMessenger.showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                "An error occurred: $e",
+                                                "An error occurred:$e",
                                               ),
                                               backgroundColor: Colors.red,
                                             ),
@@ -468,314 +470,3 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-// // Updated LoginScreen.dart
-// import 'dart:async';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:kii_bazaar/providers/auth_state.dart';
-// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-
-// class LoginScreen extends ConsumerStatefulWidget {
-//   const LoginScreen({super.key});
-
-//   @override
-//   LoginScreenState createState() => LoginScreenState();
-// }
-
-// class LoginScreenState extends ConsumerState<LoginScreen> {
-//   final TextEditingController phoneController = TextEditingController(text: "+91");
-//   final TextEditingController otpController = TextEditingController();
-//   bool isLoading = false;
-//   int countdown = 0;
-//   Timer? _timer;
-//   String lastPhoneNumber = "";
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // Listen for codeSent state and start timer when it becomes true
-//     ref.listen<bool>(codeSentProvider, (prev, next) {
-//       if (next == true && countdown == 0) {
-//         startOtpCountdown();
-//       }
-//     });
-//   }
-
-//   @override
-//   void dispose() {
-//     _timer?.cancel();
-//     phoneController.dispose();
-//     otpController.dispose();
-//     super.dispose();
-//   }
-
-//   void startOtpCountdown() {
-//     setState(() {
-//       countdown = 60;
-//     });
-//     _timer?.cancel();
-//     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-//       if (mounted) {
-//         setState(() {
-//           if (countdown > 0) {
-//             countdown--;
-//           } else {
-//             _timer?.cancel();
-//           }
-//         });
-//       } else {
-//         timer.cancel();
-//       }
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final isOtpSent = ref.watch(codeSentProvider);
-
-//     return Scaffold(
-//       body: Container(
-//         color: Colors.white,
-//         alignment: Alignment.bottomCenter,
-//         child: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               Center(
-//                 child: Image.asset(
-//                   'assets/kgms_logo.jpeg',
-//                   fit: BoxFit.contain,
-//                   width: MediaQuery.of(context).size.width * 0.8,
-//                 ),
-//               ),
-//               const SizedBox(height: 50),
-//               Column(
-//                 children: [
-//                   Container(
-//                     width: double.infinity,
-//                     decoration: const BoxDecoration(
-//                       color: Color(0xFFE8F4FD),
-//                       borderRadius: BorderRadius.only(topLeft: Radius.circular(200)),
-//                     ),
-//                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 80),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         _buildLabel('Phone Number'),
-//                         _buildTextField(
-//                           hintText: 'Enter your phone number',
-//                           controller: phoneController,
-//                           isPhoneField: true,
-//                         ),
-//                         const SizedBox(height: 20),
-//                         _buildLabel('OTP'),
-//                         Row(
-//                           children: [
-//                             Expanded(
-//                               flex: 2,
-//                               child: _buildTextField(
-//                                 hintText: 'Enter OTP',
-//                                 controller: otpController,
-//                               ),
-//                             ),
-//                             const SizedBox(width: 10),
-//                             ElevatedButton(
-//                               onPressed: (countdown > 0)
-//                                   ? null
-//                                   : () async {
-//                                       final scaffoldMessenger = ScaffoldMessenger.of(context);
-//                                       String phoneNumber = phoneController.text.trim();
-//                                       bool isValid = phoneNumber.startsWith("+91") &&
-//                                           phoneNumber.length == 13 &&
-//                                           RegExp(r'^[6-9]\d{9}\$').hasMatch(phoneNumber.substring(3));
-
-//                                       if (isValid) {
-//                                         setState(() {
-//                                           lastPhoneNumber = phoneNumber;
-//                                         });
-//                                         await ref.read(userProvider.notifier).verifyPhoneNumber(
-//                                               phoneNumber,
-//                                               ref,
-//                                               context,
-//                                             );
-//                                       } else {
-//                                         scaffoldMessenger.showSnackBar(
-//                                           const SnackBar(
-//                                             content: Text('Please enter a valid 10-digit phone number.'),
-//                                             backgroundColor: Colors.red,
-//                                           ),
-//                                         );
-//                                       }
-//                                     },
-//                               style: ElevatedButton.styleFrom(
-//                                 backgroundColor: const Color(0xFF00BCD4),
-//                                 shape: RoundedRectangleBorder(
-//                                   borderRadius: BorderRadius.circular(8),
-//                                 ),
-//                               ),
-//                               child: Text(
-//                                 countdown > 0
-//                                     ? '$countdown sec'
-//                                     : (lastPhoneNumber == phoneController.text.trim()
-//                                         ? 'Resend OTP'
-//                                         : 'Send OTP'),
-//                                 style: const TextStyle(
-//                                   color: Colors.white,
-//                                   fontSize: 16,
-//                                 ),
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(height: 20),
-//                         if (isOtpSent)
-//                           SizedBox(
-//                             width: double.infinity,
-//                             child: ElevatedButton(
-//                               onPressed: isLoading
-//                                   ? null
-//                                   : () async {
-//                                       final scaffoldMessenger = ScaffoldMessenger.of(context);
-//                                       String smsCode = otpController.text.trim();
-//                                       if (smsCode.isNotEmpty) {
-//                                         setState(() {
-//                                           isLoading = true;
-//                                         });
-//                                         try {
-//                                           await ref.read(userProvider.notifier).signInWithPhoneNumber(
-//                                                 smsCode,
-//                                                 ref,
-//                                                 context,
-//                                               );
-//                                           if (!mounted) return;
-//                                           _timer?.cancel();
-//                                           scaffoldMessenger.showSnackBar(
-//                                             const SnackBar(
-//                                               content: Text("OTP Verified Successfully!"),
-//                                               backgroundColor: Color(0xFF34A853),
-//                                             ),
-//                                           );
-//                                         } on FirebaseAuthException catch (e) {
-//                                           if (!mounted) return;
-//                                           setState(() => isLoading = false);
-//                                           String errorMessage = 'Verification failed. Please try again.';
-//                                           if (e.code == 'invalid-verification-code') {
-//                                             errorMessage = 'The OTP you entered is incorrect.';
-//                                           } else if (e.code == 'session-expired') {
-//                                             errorMessage = 'OTP session expired. Please request a new one.';
-//                                           }
-//                                           scaffoldMessenger.showSnackBar(
-//                                             SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
-//                                           );
-//                                         } catch (e, stackTrace) {
-//                                           if (!mounted) return;
-//                                           setState(() => isLoading = false);
-//                                           FirebaseCrashlytics.instance.recordError(e, stackTrace, reason: 'OTP verification error');
-//                                           scaffoldMessenger.showSnackBar(
-//                                             SnackBar(
-//                                               content: Text("An error occurred: $e"),
-//                                               backgroundColor: Colors.red,
-//                                             ),
-//                                           );
-//                                         }
-//                                       } else {
-//                                         scaffoldMessenger.showSnackBar(
-//                                           const SnackBar(
-//                                             content: Text("Please enter the OTP."),
-//                                             backgroundColor: Colors.red,
-//                                           ),
-//                                         );
-//                                       }
-//                                     },
-//                               style: ElevatedButton.styleFrom(
-//                                 backgroundColor: isLoading ? Colors.grey : const Color(0xFF1B73E8),
-//                                 shape: RoundedRectangleBorder(
-//                                   borderRadius: BorderRadius.circular(8),
-//                                 ),
-//                               ),
-//                               child: isLoading
-//                                   ? const SizedBox(
-//                                       height: 24,
-//                                       width: 24,
-//                                       child: CircularProgressIndicator(
-//                                         color: Colors.white,
-//                                         strokeWidth: 3,
-//                                       ),
-//                                     )
-//                                   : const Text(
-//                                       'Verify',
-//                                       style: TextStyle(
-//                                         color: Colors.white,
-//                                         fontSize: 16,
-//                                         fontWeight: FontWeight.bold,
-//                                       ),
-//                                     ),
-//                             ),
-//                           ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildLabel(String text) {
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 8.0),
-//       child: Text(
-//         text,
-//         style: const TextStyle(
-//           fontWeight: FontWeight.bold,
-//           color: Color(0xFF1B73E8),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildTextField({
-//     required String hintText,
-//     required TextEditingController controller,
-//     bool isPhoneField = false,
-//   }) {
-//     return TextField(
-//       controller: controller,
-//       decoration: InputDecoration(
-//         hintText: hintText,
-//         filled: true,
-//         fillColor: Colors.grey[200],
-//         border: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(8),
-//           borderSide: BorderSide.none,
-//         ),
-//       ),
-//       keyboardType: TextInputType.number,
-//       onChanged: (value) {
-//         if (isPhoneField) {
-//           if (!value.startsWith("+91")) {
-//             phoneController.text = "+91";
-//             phoneController.selection = TextSelection.fromPosition(
-//               TextPosition(offset: phoneController.text.length),
-//             );
-//           }
-//           if (value.trim() != lastPhoneNumber) {
-//             setState(() {
-//               countdown = 0;
-//             });
-//           }
-//         }
-//       },
-//     );
-//   }
-// }

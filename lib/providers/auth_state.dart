@@ -272,6 +272,7 @@ class PhoneAuthNotifier extends StateNotifier<UserModel> {
         reason: "Unexpected error during phone number verification",
         fatal: true,
       );
+      // ignore: use_build_context_synchronously
       showSnackBar(context, e.toString(), Colors.red);
       debugPrint("Error during verification: $e");
     }

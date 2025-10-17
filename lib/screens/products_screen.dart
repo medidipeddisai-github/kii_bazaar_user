@@ -468,21 +468,24 @@ class ProductsScreenState extends ConsumerState<ProductsScreen>
             width: double.infinity,
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) => Container(
-              height: imageHeight,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [KGMS.lightBlue, Colors.white],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+            height: imageHeight,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [KGMS.lightBlue, Colors.white],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-              child: const Icon(
-                Icons.medical_services_rounded,
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.broken_image_outlined,
                 size: 40,
                 color: KGMS.primaryBlue,
               ),
             ),
           ),
+        ),
           Positioned(
             top: 8,
             right: 8,
